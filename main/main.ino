@@ -1,8 +1,10 @@
 #include <Wire.h>
 
+#define samplingFreq 100
+
 void setup(){
   Serial.begin(115200);
-  AcceloSetup();
+  IMUSetup();
 }
 
 void loop(){

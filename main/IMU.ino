@@ -3,6 +3,11 @@
 #include <MPU6050.h>
 
 MPU6050 mpu;
+
+void IMUSetup(){
+  AcceloSetup();
+  GyroSetup();
+}
 void AcceloSetup() {
   // put your setup code here, to run once:
   Serial.println("Initializing MPU6050");
@@ -15,6 +20,9 @@ void AcceloSetup() {
     mpu.calibrateGyro();
     //checkSettings();
 
+}
+void GyroSetup(){
+  
 }
 void checkSettings()
 {
