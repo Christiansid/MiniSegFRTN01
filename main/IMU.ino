@@ -1,16 +1,22 @@
-#define accelZBias 850
-#define accelYBias -100
+
 #include <MPU6050.h>
 
 MPU6050 mpu;
 
-void IMUSetup(){
-  AcceloSetup();
-  GyroSetup();
-}
-void AcceloSetup() {
+// Imu bias
+// Accelometer bias
+const int accelZBias = 850;
+const int accelYBias = -100;
+//Gyroscope bias
+const int8_t xVelBias = 60;
+
+//Gyroscope scaling factor
+const double scaleGyro = 1.34*pow(10,-4);
+
+//Setup IMU board
+void IMUSetup() {
   // put your setup code here, to run once:
-  Serial.println("Initializing MPU6050");
+  //Serial.println("Initializing MPU6050");
   while(!mpu.begin(MPU6050_SCALE_2000DPS, MPU6050_RANGE_2G)){
     Serial.println("Could not find a valid MPU6050 sensor, check wiring!");
     delay(500);
@@ -21,9 +27,7 @@ void AcceloSetup() {
     //checkSettings();
 
 }
-void GyroSetup(){
-  
-}
+
 void checkSettings()
 {
   Serial.println();
@@ -61,8 +65,14 @@ void checkSettings()
   
   Serial.println();
 }
-
-float readAccel(){
+float getGyroDot(){
+  Vector rawGyro = mpu.readRawGyro();
+  double x = (double) rawGyro.XAxis + xVelBias;
+  x = x*scaleGyro;
+  return x;
+  
+}
+float getAlphaAccel(){
   Vector rawAccel = mpu.readRawAccel();
   float y = rawAccel.YAxis + accelYBias;
   float z = rawAccel.ZAxis + accelZBias;
@@ -71,6 +81,6 @@ float readAccel(){
   //Serial.print(",");
   //Serial.print(z);
   //Serial.print(",");
-  Serial.println(alpha);
+  //Serial.println(alpha);
   return alpha;
 }
