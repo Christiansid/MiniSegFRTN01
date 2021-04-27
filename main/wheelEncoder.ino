@@ -57,3 +57,8 @@ void encoderInterrupt(){
 long getWheelRaw(){
   return ticks;
 }
+
+double getWheelAngle(){
+  double angle = ticks/720*2*pi;
+  return angle;
+}
