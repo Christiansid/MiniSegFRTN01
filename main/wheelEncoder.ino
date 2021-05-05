@@ -59,6 +59,6 @@ long getWheelRaw(){
 }
 
 double getWheelAngle(){
-  double angle = ticks/720*2*pi;
+  double angle = 2*M_PI*ticks/720;
   return angle;
 }
