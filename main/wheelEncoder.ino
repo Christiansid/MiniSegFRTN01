@@ -52,9 +52,7 @@ void encoderInterrupt(){
     }
   }
   oldState = newState;
-  Serial.print(ticks);
-  Serial.print(",");
-  Serial.println(getWheelAngle());
+  //Serial.println(ticks);
 }
 long getWheelRaw(){
   return ticks;
