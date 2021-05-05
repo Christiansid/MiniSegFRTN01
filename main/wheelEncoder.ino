@@ -52,13 +52,15 @@ void encoderInterrupt(){
     }
   }
   oldState = newState;
-  Serial.println(ticks);
+  Serial.print(ticks);
+  Serial.print(",");
+  Serial.println(getWheelAngle());
 }
 long getWheelRaw(){
   return ticks;
 }
 
 double getWheelAngle(){
-  double angle = ticks/720*2*pi;
+  double angle = 2*M_PI*ticks/720;
   return angle;
 }
