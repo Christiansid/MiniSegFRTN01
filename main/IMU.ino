@@ -27,7 +27,7 @@ void IMUSetup() {
     // Calibrate gyroscope. The calibration must be at rest.
     // If you don't want calibrate, comment this line.
     mpu.calibrateGyro();
-    //checkSettings();
+    checkSettings();
 
 }
 // Används Aldrig 

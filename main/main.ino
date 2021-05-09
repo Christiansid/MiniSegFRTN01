@@ -1,5 +1,6 @@
 #include <Wire.h>
 #include <math.h>
+
 #include <MPU6050.h>
 
 #define samplingTime 0.020
@@ -11,15 +12,23 @@ long now;
 long printIDX = 0;
 
 
+//Wheel encoder pins
+#define wheelEncoderPin1 2
+#define wheelEncoderPin2 3
+
 void setup(){
-  setupWheel(); 
   Serial.begin(115200);
   IMUSetup();
   compFilterSetup();
+<<<<<<< HEAD
   pinMode(motorPinF, OUTPUT);
   pinMode(motorPinB, OUTPUT);  
 
   //long now = millis();
+=======
+  setupWheel();
+  
+>>>>>>> c29eb63db3cdbe034a6d3129e444391d092fe519
 }
 
 void loop(){
