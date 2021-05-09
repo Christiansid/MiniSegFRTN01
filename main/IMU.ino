@@ -5,29 +5,32 @@ MPU6050 mpu;
 
 // Imu bias
 // Accelometer bias
-const int accelZBias = 850;
-const int accelYBias = -100;
+const int16_t accelZBias = 710; //-17200;
+const int16_t accelYBias = -100;
 //Gyroscope bias
-const int8_t xVelBias = 60;
+const int16_t xVelBias = 44; //210; //39;
 
 //Gyroscope scaling factor
-const double scaleGyro = 1.34*pow(10,-4);
+const double scaleGyro = 1.34*pow(10, -4);
+//const double scaleGyro = 0.028647; 
+
+const float scaleAcc = 16384;
 
 //Setup IMU board
 void IMUSetup() {
-  // put your setup code here, to run once:
+ 
   //Serial.println("Initializing MPU6050");
-  while(!mpu.begin(MPU6050_SCALE_2000DPS, MPU6050_RANGE_2G)){
+  while(!mpu.begin(MPU6050_SCALE_250DPS, MPU6050_RANGE_2G)){
     //Serial.println("Could not find a valid MPU6050 sensor, check wiring!");
     delay(500);
-}
+  }
     // Calibrate gyroscope. The calibration must be at rest.
     // If you don't want calibrate, comment this line.
     mpu.calibrateGyro();
     //checkSettings();
 
 }
-
+// Används Aldrig 
 void checkSettings()
 {
   Serial.println();
@@ -66,21 +69,29 @@ void checkSettings()
   Serial.println();
 }
 float getGyroDot(){
+  // Testa ändra skalfaktor
   Vector rawGyro = mpu.readRawGyro();
   double x = (double) rawGyro.XAxis + xVelBias;
+  //Serial.println(x);
   x = x*scaleGyro;
+  //Serial.println(x);
+ // x = x* (double) 2* M_PI /(double) 360;
   return x;
   
 }
 float getAlphaAccel(){
   Vector rawAccel = mpu.readRawAccel();
   float y = rawAccel.YAxis + accelYBias;
+  y = y/scaleAcc; 
   float z = rawAccel.ZAxis + accelZBias;
-  float alpha = (float) atan2(z, -y);
-  //Serial.print(y);
+ // Serial.println(y);
   //Serial.print(",");
-  //Serial.print(z);
+  //Serial.println(z);
+  z = z/scaleAcc; 
+  float alpha = (float) atan2(z, -y);
+
   //Serial.print(",");
   //Serial.println(alpha);
+  //Serial.print(alpha);
   return alpha;
 }

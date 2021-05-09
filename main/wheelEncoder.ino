@@ -20,35 +20,35 @@ void encoderInterrupt(){
     case 0:
       //Wheel moving backward
       if(oldState == 1){
-        ticks--;
+        ticks++;
       }else{
         //Wheel is moving forward
-        ticks++;
+        ticks--;
       }
       break;
     case 1:
      if(oldState == 3){
       //Moving backward
-      ticks--;
+      ticks++;
      }else{
       //Moving forward
-      ticks++;
+      ticks--;
      }
      break;
    case 2:
     if(oldState == 0){
       //Moving backward
-      ticks--;
-    }else{
       ticks++;
+    }else{
+      ticks--;
     }
     break;
   case 3:
     if(oldState == 2){
       //Moving backward
-      ticks--;
-    }else{
       ticks++;
+    }else{
+      ticks--;
     }
   }
   oldState = newState;
@@ -59,6 +59,7 @@ long getWheelRaw(){
 }
 
 double getWheelAngle(){
-  double angle = 2*M_PI*ticks/720;
+  double angle = (double) 2*M_PI*ticks/ (double) 720;
+  //Serial.println(angle);
   return angle;
 }
