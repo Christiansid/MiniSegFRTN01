@@ -30,7 +30,6 @@ void IMUSetup() {
     checkSettings();
 
 }
-// Används Aldrig 
 void checkSettings()
 {
   Serial.println();
@@ -72,10 +71,7 @@ float getGyroDot(){
   // Testa ändra skalfaktor
   Vector rawGyro = mpu.readRawGyro();
   double x = (double) rawGyro.XAxis + xVelBias;
-  //Serial.println(x);
   x = x*scaleGyro;
-  //Serial.println(x);
- // x = x* (double) 2* M_PI /(double) 360;
   return x;
   
 }
@@ -84,14 +80,7 @@ float getAlphaAccel(){
   float y = rawAccel.YAxis + accelYBias;
   y = y/scaleAcc; 
   float z = rawAccel.ZAxis + accelZBias;
- // Serial.println(y);
-  //Serial.print(",");
-  //Serial.println(z);
   z = z/scaleAcc; 
   float alpha = (float) atan2(z, -y);
-
-  //Serial.print(",");
-  //Serial.println(alpha);
-  //Serial.print(alpha);
   return alpha;
 }

@@ -9,6 +9,5 @@ double compFilter(double gyroDot, double alphaAccel){
   double dt = (double) samplingTime; //(double) 1/ (double) samplingFreq;
   double compAlpha = gyroBias*(oldComp+gyroDot*dt) + accBias*alphaAccel;
   oldComp = compAlpha;
-  //Serial.println(compAlpha*100);
   return compAlpha;
 }
